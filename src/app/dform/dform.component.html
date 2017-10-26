@@ -1,0 +1,50 @@
+<div class="ui raised segment">
+  <h2 class="ui header">Demo Form: with validations (explicit)</h2>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" class="ui form" [class.error]="!myForm.valid && myForm.touched">
+
+    <div class="field">
+      <label for="skuInput">SKU</label>
+      <input type="text" id="skuInput" placeholder="SKU" [formControl]="myForm.controls['sku']">
+      <div *ngIf="!myForm.controls['sku'].valid" class="ui error message">SKU is invalid</div>
+      <div *ngIf="myForm.controls['sku'].hasError('required')" class="ui error message">SKU is required</div>
+      <div *ngIf="myForm.controls['sku'].hasError('minlength')" class="ui error message">Min lenght is {{minLenghtSku}}</div>
+    </div>
+
+    <div class="field">
+      <label for="nameInput">Name</label>
+      <input type="text" id="nameInput" placeholder="Name" [formControl]="myForm.controls['name']">
+      <div *ngIf="!myForm.controls['name'].valid" class="ui error message">Name is invalid</div>
+      <div *ngIf="myForm.controls['name'].hasError('required')" class="ui error message">Name is required</div>
+    </div>
+
+    <div *ngIf="!myForm.valid" class="ui error message">Form is invalid</div>
+
+    <button [disabled]="!myForm.valid" type="submit" class="ui button">Submit</button>
+  </form>
+</div>
+
+
+<div *ngIf="productList.length>0">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let prod of productList">
+      <td>
+        {{prod.sku}}
+      </td>
+      <td>
+        {{prod.name}}
+      </td>
+      <td>
+          <button type="button" class="ui button" (click)="deleteProduct(prod)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<ngui-popup #popup>TEST</ngui-popup>
